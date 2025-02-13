@@ -1,6 +1,1 @@
 node_modules
-
-
-git remote add origin2 git@github.com:subbu959/mkap-frontend.git
-git branch -M main
-git push -u origin2 main
