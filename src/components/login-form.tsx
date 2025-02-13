@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "@/redux/features/authSlice";
+import { signIn } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
 import { AppDispatch } from "@/redux/store";
 
@@ -56,7 +56,7 @@ export function AdminLoginForm({
     e.preventDefault();
     if (validateForm()) {
       console.log("Form submitted with values:", { email, password });
-      dispatch(signUp({ formData,router }));
+      dispatch(signIn({formData,router}));
     }
   };
   return (
