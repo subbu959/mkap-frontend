@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button";
 import { AddUserForm } from "./adduser-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUsers } from "@/redux/features/usersSlice";
 import { AppDispatch } from "@/redux/store";
 

@@ -9,11 +9,15 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "@/redux/features/usersSlice";
+import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/redux/store";
 export function AddUserForm({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+    const dispatch = useDispatch<AppDispatch>();
     const [formData, setFormData] = useState({
         fname: "",
         lname: "",
@@ -28,7 +32,7 @@ export function AddUserForm({
       });
     
       const [errors, setErrors] = useState<Record<string, string>>({});
-    
+      const router = useRouter();
       const validateForm = () => {
         let newErrors: Record<string, string> = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,10 +60,25 @@ export function AddUserForm({
       };
     
       const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (validateForm()) {
-          console.log("User Data:", formData);
-        }
+        const formattedPayload = {
+                  firstName: formData.fname,
+                  lastName: formData.lname,
+                  email: formData.email,
+                  username: formData.uname,
+                  phone: formData.phno,
+                  address: formData.address,
+                  city: formData.city,
+                  state: formData.state,
+                  password: formData.password,
+                  confirmPassword: formData.cpassword,
+                }
+        
+        
+              e.preventDefault();
+              if (validateForm()) {
+                console.log("User Data:", formattedPayload);
+                dispatch(createUser({ updatedUserData:formattedPayload, router }));
+              }
       };
       return (
         <div className={cn("flex flex-col space-y-2 p-3 bg-gray-100 rounded-lg", className)} {...props}>
