@@ -7,15 +7,15 @@ const API = axios.create({
   },
 });
 
-API.interceptors.request.use((req: any) => {
-  if (localStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      // @ts-ignore: already check not null
-      JSON.parse(localStorage.getItem("profile")).tokens.accessToken
-    }`;
-  }
-  return req;
-});
+// API.interceptors.request.use((req: any) => {
+//   if (localStorage.getItem("profile")) {
+//     req.headers.Authorization = `Bearer ${
+//       // @ts-ignore: already check not null
+//       JSON.parse(localStorage.getItem("profile")).token
+//     }`;
+//   }
+//   return req;
+// });
 
 export const signIn = (formData: any) => API.post("/auth/signin", formData);
 export const signUp = (formData: any) => API.post("/auth/signup", formData);

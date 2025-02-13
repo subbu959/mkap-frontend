@@ -6,7 +6,7 @@ export const signIn = createAsyncThunk("auth/signIn", async (
   { rejectWithValue }
 ) => {
   const response = await api.signIn(formData);
-  console.log(response.data);
+  router.push("/admin-home");
   return response.data;
 
 });
@@ -17,7 +17,9 @@ export const signUp = createAsyncThunk("auth/signUp", async (
   ) => {
     try {
       const response: any = await api.signUp(formData);
-      console.log(response.data);
+
+      console.log("🚀 ~ response:", response);
+
       router.push("/login");
       return response.data;
     } catch (err: any) {
@@ -50,6 +52,7 @@ export const authSlice = createSlice({
       });
       builder.addCase(signIn.fulfilled, (state: any, action) => {
         state.loading = false;
+        console.log("🚀 ~ action:", action.payload);
         localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
         state.user = action.payload;
       });
