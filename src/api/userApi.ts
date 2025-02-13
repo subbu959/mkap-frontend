@@ -11,7 +11,7 @@ API.interceptors.request.use((req: any) => {
   if (localStorage.getItem("profile")) {
     req.headers.Authorization = `Bearer ${
       // @ts-ignore: already check not null
-      JSON.parse(localStorage.getItem("profile")).token
+      JSON.parse(localStorage.getItem("profile")).tokens.accessToken
     }`;
   }
   return req;
