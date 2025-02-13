@@ -14,128 +14,26 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button";
 import { AddUserForm } from "./adduser-form";
-async function getData(): Promise<User[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      username: "johndoe",
-      email: "john.doe@example.com",
-      phone: "123-456-7890",
-      address: "123 Main St",
-      city: "New York",
-      state: "NY",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      username: "janesmith",
-      email: "jane.smith@example.com",
-      phone: "987-654-3210",
-      address: "456 Elm St",
-      city: "Los Angeles",
-      state: "CA",
-    },
-    {
-      id: 3,
-      firstName: "Alice",
-      lastName: "Johnson",
-      username: "alicej",
-      email: "alice.johnson@example.com",
-      phone: "555-123-4567",
-      address: "789 Oak St",
-      city: "Chicago",
-      state: "IL",
-    },
-    {
-      id: 4,
-      firstName: "Bob",
-      lastName: "Brown",
-      username: "bobbrown",
-      email: "bob.brown@example.com",
-      phone: "222-333-4444",
-      address: "321 Pine St",
-      city: "Houston",
-      state: "TX",
-    },
-    {
-      id: 5,
-      firstName: "Emily",
-      lastName: "Davis",
-      username: "emilyd",
-      email: "emily.davis@example.com",
-      phone: "111-222-3333",
-      address: "654 Maple St",
-      city: "San Francisco",
-      state: "CA",
-    },
-    {
-      id: 6,
-      firstName: "Michael",
-      lastName: "Wilson",
-      username: "michaelw",
-      email: "michael.wilson@example.com",
-      phone: "777-888-9999",
-      address: "987 Birch St",
-      city: "Seattle",
-      state: "WA",
-    },
-    {
-      id: 7,
-      firstName: "Sophia",
-      lastName: "Martinez",
-      username: "sophiam",
-      email: "sophia.martinez@example.com",
-      phone: "333-444-5555",
-      address: "123 Cedar St",
-      city: "Miami",
-      state: "FL",
-    },
-    {
-      id: 8,
-      firstName: "William",
-      lastName: "Anderson",
-      username: "williamand",
-      email: "william.anderson@example.com",
-      phone: "666-777-8888",
-      address: "321 Walnut St",
-      city: "Denver",
-      state: "CO",
-    },
-    {
-      id: 9,
-      firstName: "Olivia",
-      lastName: "Garcia",
-      username: "oliviag",
-      email: "olivia.garcia@example.com",
-      phone: "999-000-1111",
-      address: "654 Chestnut St",
-      city: "Boston",
-      state: "MA",
-    },
-    {
-      id: 10,
-      firstName: "James",
-      lastName: "Harris",
-      username: "jamesh",
-      email: "james.harris@example.com",
-      phone: "444-555-6666",
-      address: "789 Spruce St",
-      city: "Phoenix",
-      state: "AZ",
-    },
-  ];
-}
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "@/redux/features/usersSlice";
+import { AppDispatch } from "@/redux/store";
+
 
 export function AdminHome({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const [data, setData] = useState<User[]>([]);
-
+  const dispatch = useDispatch<AppDispatch>();
+  async function getData(): Promise<User[]> {
+    try {
+      const response = await dispatch(getUsers()).unwrap(); // Dispatch and unwrap the result
+      return response; // Return the fetched users
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+      return []; // Return empty array in case of error
+    }
+  }
   useEffect(() => {
     async function fetchData() {
       const result = await getData();
