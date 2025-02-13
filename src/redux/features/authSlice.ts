@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../api/authApi";
 
-export const signIn = createAsyncThunk("auth/signIn", async (formData) => {
+export const signIn = createAsyncThunk("auth/signIn", async (
+  { formData, router  }: { formData: any; router: any;  },
+  { rejectWithValue }
+) => {
   const response = await api.signIn(formData);
   console.log(response.data);
   return response.data;
@@ -15,7 +18,6 @@ export const signUp = createAsyncThunk("auth/signUp", async (
     try {
       const response: any = await api.signUp(formData);
       console.log(response.data);
-    //   toast.success("Register Successfully");
       router.push("/login");
       return response.data;
     } catch (err: any) {
