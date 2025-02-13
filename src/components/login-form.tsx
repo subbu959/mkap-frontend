@@ -12,6 +12,10 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from "@/redux/features/authSlice";
+import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/redux/store";
 
 export function AdminLoginForm({
   className,
@@ -19,6 +23,9 @@ export function AdminLoginForm({
 }: React.ComponentPropsWithoutRef<"div">) {
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+      const router = useRouter();
+  
+      const dispatch = useDispatch<AppDispatch>();
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
   const validateForm = () => {
@@ -42,9 +49,14 @@ export function AdminLoginForm({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    const formData  = {
+      email,
+      password
+    }
     e.preventDefault();
     if (validateForm()) {
       console.log("Form submitted with values:", { email, password });
+      dispatch(signUp({ formData,router }));
     }
   };
   return (
