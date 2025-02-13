@@ -15,7 +15,6 @@ export const signUp = createAsyncThunk("auth/signUp", async (
     try {
       const response: any = await api.signUp(formData);
       console.log(response.data);
-    //   toast.success("Register Successfully");
       router.push("/login");
       return response.data;
     } catch (err: any) {
