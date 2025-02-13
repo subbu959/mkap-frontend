@@ -6,7 +6,6 @@ export const signIn = createAsyncThunk("auth/signIn", async (
   { rejectWithValue }
 ) => {
   const response = await api.signIn(formData);
-  console.log(response.data);
   return response.data;
 
 });
@@ -17,7 +16,9 @@ export const signUp = createAsyncThunk("auth/signUp", async (
   ) => {
     try {
       const response: any = await api.signUp(formData);
-      console.log(response.data);
+
+      console.log("🚀 ~ response:", response);
+
       router.push("/login");
       return response.data;
     } catch (err: any) {
