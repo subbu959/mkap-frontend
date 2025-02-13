@@ -7,11 +7,27 @@ const API = axios.create({
   },
 });
 
+// profile = {
+// {
+//   "message": "Login successful",
+//   "tokens": {
+//       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWRmN2RiZWFjNThlMjk2YjUzNTQ4NCIsImVtYWlsIjoiamFuZS5kb2UxMjM0NUBnbWFpbC5jb20iLCJyb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTczOTQ1NjM2MSwiZXhwIjoxNzM5NDU5OTYxfQ.RgeenUesmdA40j_6cVJKcTwZUVIVxXotEPBp40cED7I",
+//       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWRmN2RiZWFjNThlMjk2YjUzNTQ4NCIsImVtYWlsIjoiamFuZS5kb2UxMjM0NUBnbWFpbC5jb20iLCJyb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTczOTQ1NjM2MSwiZXhwIjoxNzQwMDYxMTYxfQ.ZmRN1IjOgwnprRyHdfGwl3sBRucn8NUIQTchuDAwH6k"
+//   },
+//   "user": {
+//       "id": "67adf7dbeac58e296b535484",
+//       "email": "jane.doe12345@gmail.com",
+//       "role": "superAdmin"
+//   }
+// }
+// }
+
 API.interceptors.request.use((req: any) => {
   if (localStorage.getItem("profile")) {
     req.headers.Authorization = `Bearer ${
       // @ts-ignore: already check not null
-      JSON.parse(localStorage.getItem("profile")).token
+      // JSON.parse(localStorage.getItem("profile")).token
+      JSON.parse(localStorage.getItem("profile")).tokens.accessToken
     }`;
   }
   return req;

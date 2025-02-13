@@ -6,7 +6,7 @@ export const signIn = createAsyncThunk("auth/signIn", async (
   { rejectWithValue }
 ) => {
   const response = await api.signIn(formData);
-  console.log("🚀 ~ response:", response);
+  router.push("/admin-home");
   return response.data;
 
 });
